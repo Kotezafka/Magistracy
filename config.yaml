@@ -1,0 +1,13 @@
+#task1
+path_1: ./text_files/task1/source.txt
+path_2: ./text_files/task1/destination.txt
+
+#task2
+path_3: ./text_files/task2/prices.txt
+
+#task3
+path_4: ./text_files/task3/text_file.txt
+
+#task4
+path_5: ./text_files/task4/input.txt
+path_6: ./text_files/task4/unique_output.txt

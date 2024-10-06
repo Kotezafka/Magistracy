@@ -1,26 +1,26 @@
-'''Задание 4. Обработка ошибок индексации
-Напишите программу, которая принимает от пользователя индекс элемента списка
-и выводит значение этого элемента. Используйте обработку исключений для корректной обработки ситуаций,
-когда пользователь вводит индекс, выходящий за пределы списка'''
+'''Задание 4. Копирование уникального содержимого одного файла в другой
+Создайте программу, которая считывает строки из файла input.txt,
+сохраняет только уникальные строки и записывает их в новый файл unique_output.txt'''
 
-import random
 
-class ListIndexOutOfRange(Exception):
-    pass
+import yaml
 
-def find_value_element(random_list, ind):
-    try:
-        value = random_list[ind]
-    except IndexError as e:
-        raise ListIndexOutOfRange(f'Индекс списка выходит за пределы диапазона: {e}')
-
-    return value
+def unique_content(conf):
+    dict_unique_str = {}
+    with open(conf['path_5'], 'r') as src:
+        with open(conf['path_6'], 'w') as dst:
+            for line in src:
+                str_hash = hash(line.strip())
+                if str_hash in dict_unique_str:
+                    continue
+                dict_unique_str[str_hash] = 1
+                dst.write(line)
 
 def main():
-    i = int(input())
-    random_list = [random.randint(1, 15) for _ in range(10)]
-    res = find_value_element(random_list, i)
-    print(f"Значение элемента по индексу {i}: {res}")
+    with open('config.yaml', 'r') as f:
+        config = yaml.safe_load(f)
+
+    unique_content(config)
 
 
 if __name__ == '__main__':

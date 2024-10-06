@@ -1,27 +1,24 @@
-'''Задание 2. Обработка некорректного ввода
-Расширьте предыдущую программу, чтобы она также обрабатывала ситуацию, когда пользователь вводит строку вместо числа.
-Используйте несколько блоков except для обработки разных типов исключений'''
+'''Задание 2. Подсчёт стоимости заказа из файла
+Напишите программу, которая считывает файл prices.txt, содержащий
+информацию о товарах: название, количество и цену, и подсчитывает общую стоимость заказа'''
 
+import yaml
 
-def dividing_numbers(a, b):
-    try:
-        div = a / b
-        return div
-    except ZeroDivisionError:
-        print('Деление на ноль запрещено')
+def cost_the_order(conf):
+    cost = 0
+    with open(conf['path_3'], 'r') as src:
+        for i, line in enumerate(src):
+            if i == 0:
+                continue
+            cost += int(line.split(' ')[2])
+    return cost
 
 def main():
-    try:
-        num1 = float(input())
-        num2 = float(input())
-    except ValueError:
-        print('Некорректный ввод')
-        exit()
+    with open('config.yaml', 'r') as f:
+        config = yaml.safe_load(f)
 
-    res = dividing_numbers(num1, num2)
-    if res is None:
-        exit()
-    print(f"Результат деления: {res}")
+    res = cost_the_order(config)
+    print(f'Общая стоимость заказа: {res}')
 
 
 if __name__ == '__main__':
