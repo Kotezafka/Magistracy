@@ -1,27 +1,35 @@
-'''Задание 4. Копирование уникального содержимого одного файла в другой
-Создайте программу, которая считывает строки из файла input.txt,
-сохраняет только уникальные строки и записывает их в новый файл unique_output.txt'''
+'''Задание 4.
+Напишите программу, которая использует многопроцессность для вычисления
+факториала целых чисел от 1 до 10. Каждый процесс должен вычислять факториал одного числа.'''
 
 
-import yaml
+import multiprocessing
 
-def unique_content(conf):
-    dict_unique_str = {}
-    with open(conf['path_5'], 'r') as src:
-        with open(conf['path_6'], 'w') as dst:
-            for line in src:
-                str_hash = hash(line.strip())
-                if str_hash in dict_unique_str:
-                    continue
-                dict_unique_str[str_hash] = 1
-                dst.write(line)
+
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+def count_factorial(num):
+    result = factorial(num)
+    print(f"Процесс {num}: Факториал {num} равен {result}")
+
+def supervisor():
+    processes = []
+    for i in range(1, 11):
+        process = multiprocessing.Process(target=count_factorial, args=(i,))
+        processes.append(process)
+
+    for process in processes:
+        process.start()
+
+    for process in processes:
+        process.join()
 
 def main():
-    with open('config.yaml', 'r') as f:
-        config = yaml.safe_load(f)
-
-    unique_content(config)
-
+    supervisor()
 
 if __name__ == '__main__':
     main()

@@ -1,24 +1,19 @@
-'''Задание 3. Подсчёт количества слов в файле
-Напишите программу, которая подсчитывает количество слов
-в текстовом файле text_file.txt и выводит результат на экран'''
+'''Задание 3.
+Напишите программу, которая асинхронно обрабатывает список чисел, вычисляя их квадрат.
+Каждая операция обработки должна имитировать задержку в 1 секунду.'''
 
 
-import yaml
+import asyncio
 
-def amount_of_words(conf):
-    amount = 0
-    with open(conf['path_4'], 'r') as src:
-        for line in src:
-            amount += len(line.split())
-    return amount
 
-def main():
-    with open('config.yaml', 'r') as f:
-        config = yaml.safe_load(f)
+async def counts_squares():
+    for i in range(1, 11):
+        print(i ** 2)
+        await asyncio.sleep(1)
 
-    res = amount_of_words(config)
-    print(f'Количество слов в текстовом файле: {res}')
-
+async def main():
+    task_1 = asyncio.create_task(counts_squares())
+    await task_1
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
