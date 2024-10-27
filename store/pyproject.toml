@@ -1,13 +1,14 @@
 [tool.poetry]
-name = "project"
-version = "1"
+name = "store"
+version = "0.1.0"
 description = ""
-authors = ["Kotezafka <samuseva.kate@yandex.ru>"]
+authors = ["Kate Samuseva <samuseva.kate@yandex.ru>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 
 [tool.poetry.dev-dependencies]
+pytest = "^5.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
