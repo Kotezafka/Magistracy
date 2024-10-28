@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "store"
+name = "library"
 version = "0.1.0"
 description = ""
 authors = ["Kate Samuseva <samuseva.kate@yandex.ru>"]
